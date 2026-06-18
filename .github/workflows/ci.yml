@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install Dependencies
+      run: |
+        pip install -r app/requirements.txt
+
+    - name: Run Tests
+      run: |
+        pytest
+
+    - name: Run Bandit
+      run: |
+        bandit -r app/
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-artifacts
+        path: app/
+      
+
