@@ -2,7 +2,7 @@ import socket
 from flask import Flask, render_template_string
 
 app = Flask(__name__) 
- 
+
 # Lightweight HTML template embedded directly to keep it to one file
 HTML_TEMPLATE = """
 <!DOCTYPE html>
